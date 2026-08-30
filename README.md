@@ -1,65 +1,18 @@
-# Svelte library
+<div align="center">
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+![Logo](https://raw.githubusercontent.com/rodrigodagostino/svelte-sliding-carousel/master/static/favicon.svg?raw=true)
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+# Svelte Sliding Carousel
 
-## Creating a project
+A comprehensive package for creating accessible, sliding carousels in Svelte applications.
 
-If you're seeing this, you've probably already done this step. Congrats!
+[![NPM Version](https://img.shields.io/npm/v/@rodrigodagostino/svelte-sliding-carousel)](https://www.npmjs.com/package/@rodrigodagostino/svelte-sliding-carousel) [![Latest release](https://img.shields.io/github/release/rodrigodagostino/svelte-sliding-carousel.svg)](https://github.com/rodrigodagostino/svelte-sliding-carousel/releases/latest) [![License](https://img.shields.io/github/license/rodrigodagostino/svelte-sliding-carousel.svg)](LICENSE.md) [![Netlify Status](https://api.netlify.com/api/v1/badges/0062eb00-7ea7-4886-82a4-576bf477e919/deploy-status)](https://app.netlify.com/projects/svelte-sliding-carousel/deploys)
 
-```sh
-# create a new project in the current directory
-npx sv create
+</div>
 
-# create a new project in my-app
-npx sv create my-app
-```
+---
 
-To recreate this project with the same configuration:
+## Live demos
 
-```sh
-# recreate this project
-pnpm dlx sv@0.16.2 create --template library --types ts --add prettier eslint sveltekit-adapter="adapter:auto" --install pnpm svelte-sliding-carousel
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
-
-## Building
-
-To build your library:
-
-```sh
-npm pack
-```
-
-To create a production version of your showcase app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
-```
+- [Netlify](https://svelte-sliding-carousel.netlify.app)
+- [Cloudflare](https://svelte-sliding-carousel.pages.dev/)
