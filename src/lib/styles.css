@@ -1,0 +1,102 @@
+:root {
+	--ssc-white-rich: #fff;
+	--ssc-white: #f3f3f5;
+	--ssc-gray-050: #ededf0;
+	--ssc-gray-100: #e1e1e6;
+	--ssc-gray-150: #d2d2da;
+	--ssc-gray-200: #c3c3ce;
+	--ssc-gray-300: #a4a6b5;
+	--ssc-gray-400: #86889d;
+	--ssc-gray-500: #686a84;
+	--ssc-gray-600: #585a70;
+	--ssc-gray-650: #515266;
+	--ssc-gray-700: #494a5c;
+	--ssc-gray-750: #414253;
+	--ssc-gray-800: #393a49;
+	--ssc-gray-850: #31323f;
+	--ssc-gray-900: #2a2a35;
+	--ssc-gray-950: #22222b;
+	--ssc-black: #15151a;
+	--ssc-black-rich: #000;
+
+	/* Thank you, TailwindCSS :) */
+	/* https://tailwindcss.com/docs/colors */
+	--ssc-indigo-200: oklch(87% 0.065 274.039);
+	--ssc-indigo-400: oklch(67.3% 0.182 276.935);
+	--ssc-indigo-500: oklch(58.5% 0.233 277.117);
+	--ssc-indigo-600: oklch(51.1% 0.262 276.966);
+
+	--ssc-box-shadow-1:
+		0 1px 1px rgba(54, 57, 90, 0.1), 0 2px 2px rgba(54, 57, 90, 0.1),
+		0 4px 4px rgba(54, 57, 90, 0.1), 0 6px 8px rgba(54, 57, 90, 0.1),
+		0 8px 16px rgba(54, 57, 90, 0.1);
+	--ssc-box-shadow-2:
+		0 1px 1px rgba(54, 57, 90, 0.1), 0 2px 2px rgba(54, 57, 90, 0.1),
+		0 4px 4px rgba(54, 57, 90, 0.1), 0 8px 8px rgba(54, 57, 90, 0.1),
+		0 16px 16px rgba(54, 57, 90, 0.1);
+	--ssc-box-shadow-3:
+		0 2px 1px rgba(54, 57, 90, 0.1), 0 4px 2px rgba(54, 57, 90, 0.1),
+		0 8px 4px rgba(54, 57, 90, 0.1), 0 12px 8px rgba(54, 57, 90, 0.1),
+		0 24px 16px rgba(54, 57, 90, 0.1);
+	--ssc-box-shadow-4:
+		0 2px 1px rgba(54, 57, 90, 0.1), 0 4px 2px rgba(54, 57, 90, 0.1),
+		0 8px 4px rgba(54, 57, 90, 0.1), 0 16px 8px rgba(54, 57, 90, 0.1),
+		0 32px 16px rgba(54, 57, 90, 0.1);
+}
+
+.ssc-root {
+}
+
+.ssc-root:focus-visible,
+.ssc-root *:focus-visible {
+	outline: 0.125rem solid var(--ssc-gray-800);
+}
+
+.ssc-track {
+	border-radius: 1rem;
+}
+
+.ssc-button-prev,
+.ssc-button-next {
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 50%;
+	width: 3rem;
+	aspect-ratio: 1 / 1;
+	background-color: var(--ssc-gray-100);
+	box-shadow: inset 0 0 0 0.0625rem var(--ssc-gray-300);
+	border-radius: 0.5rem;
+	outline-offset: 0.125rem;
+}
+
+.ssc-button-prev {
+	inset-inline-start: 0;
+	transform: translate(-50%, -50%);
+}
+
+.ssc-button-next {
+	inset-inline-end: 0;
+	transform: translate(50%, -50%);
+}
+
+.ssc-pagination {
+	justify-content: center;
+	margin-top: 1.25rem;
+}
+
+.ssc-pagination__page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 1 / 1;
+	border-radius: 0.25rem;
+
+	&[data-is-active="false"] {
+		background-color: var(--ssc-indigo-300);
+	}
+
+	&[data-is-active="true"] {
+		background-color: var(--ssc-indigo-400);
+	}
+}
