@@ -37,7 +37,8 @@
 	}
 
 	.ssc-pagination__page {
-		min-width: 0.5rem;
-		min-height: 0.5rem;
+		min-width: 0.75rem;
+		min-height: 0.75rem;
+		padding: 0;
 	}
 </style>
