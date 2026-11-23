@@ -5,6 +5,8 @@ export interface CarouselRootProps {
 	ref?: HTMLDivElement | null;
 	/** Enables infinite looping. */
 	loop?: boolean | 'rewind';
+	/** Separation between slides (numbers as pixels, strings as any CSS length). */
+	gap?: number;
 	/** Content to be rendered inside the carousel. */
 	children?: Snippet;
 }

@@ -2,6 +2,7 @@ import type { CarouselRootProps as RootProps } from '$lib/types/index.js';
 
 export const defaultRootProps: RootProps = {
 	loop: false,
+	gap: 0,
 };
 
 export const defaultSlides = [

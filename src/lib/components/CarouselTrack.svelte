@@ -18,6 +18,7 @@
 	});
 
 	$effect(() => {
+		void rootState.props.gap;
 		const first = rootState.slides[0];
 		const last = rootState.slides[rootState.slides.length - 1];
 		if (!inner || !offsetWidth || !first || !last) {
@@ -54,6 +55,7 @@
 
 	.ssc-track__inner {
 		display: flex;
+		gap: var(--ssc-gap, 0);
 		list-style: none;
 		padding-inline-start: 0;
 		margin-inline-start: 0;

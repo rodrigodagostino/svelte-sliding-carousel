@@ -27,16 +27,17 @@
 		Object.entries(layoutState.props).map(([key, value]) => ({
 			label: key,
 			type:
-				key === 'gap' || key === 'delay'
-					? 'number'
-					: key === 'transition'
-						? 'textarea'
-						: key === 'loop'
-							? 'select'
-							: 'checkbox',
+				key === 'gap'
+					? 'text'
+					: key === 'delay'
+						? 'number'
+						: key === 'transition'
+							? 'textarea'
+							: key === 'loop'
+								? 'select'
+								: 'checkbox',
 			id: toKebabCase(key),
 			...(key === 'loop' ? { options: [false, true, 'rewind'] } : {}),
-			...(key === 'gap' || key === 'transitionDuration' ? { min: 0 } : {}),
 			value,
 		}))
 	);
@@ -47,13 +48,15 @@
 		layoutState.props[name as keyof RootProps] =
 			type === 'checkbox'
 				? (target as HTMLInputElement).checked
-				: type === 'number'
+				: type === 'text' && !!Number(value)
 					? Number(value)
-					: type === 'textarea'
-						? JSON.parse(value)
-						: value === 'true' || value === 'false'
-							? value === 'true'
-							: value;
+					: type === 'number'
+						? Number(value)
+						: type === 'textarea'
+							? JSON.parse(value)
+							: value === 'true' || value === 'false'
+								? value === 'true'
+								: value;
 	}
 </script>
 
@@ -207,20 +210,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each controls as { id, type, label, min, options, value } (id)}
+					{#each controls as { id, type, label, options, value } (id)}
 						<tr>
 							<td></td>
 							<td><label for={id}>{label}</label></td>
 							<td>
-								{#if type === 'number'}
-									<input
-										{id}
-										type="number"
-										name={label}
-										{min}
-										{value}
-										oninput={handleFieldChange}
-									/>
+								{#if type === 'text'}
+									<input {id} type="text" name={label} {value} oninput={handleFieldChange} />
+								{:else if type === 'number'}
+									<input {id} type="number" name={label} {value} oninput={handleFieldChange} />
 								{:else if type === 'textarea'}
 									<textarea
 										{id}
