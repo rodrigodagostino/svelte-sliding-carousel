@@ -10,7 +10,7 @@
 	const classes = $derived(['ssc-pagination', restProps.class]);
 
 	function handleOnClick(index: number) {
-		rootState.activeSlideIndex = index;
+		rootState.goTo(index);
 	}
 </script>
 
@@ -19,7 +19,7 @@
 		<li>
 			<button
 				class="ssc-pagination__page"
-				data-is-active={index === rootState.activeSlideIndex}
+				data-is-active={index === rootState.activeIndex}
 				aria-label={`Go to slide ${index + 1}`}
 				onclick={() => handleOnClick(index)}
 			></button>

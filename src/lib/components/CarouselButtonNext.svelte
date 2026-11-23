@@ -13,11 +13,16 @@
 	const classes = $derived(['ssc-button-next', restProps.class]);
 
 	function handleOnClick() {
-		rootState.activeSlideIndex = (rootState.activeSlideIndex + 1) % rootState.slides.length;
+		rootState.goToNext();
 	}
 </script>
 
-<button bind:this={ref} class={classes} onclick={handleOnClick}>
+<button
+	bind:this={ref}
+	class={classes}
+	aria-disabled={!rootState.canGoToNext}
+	onclick={handleOnClick}
+>
 	{#if children}
 		{@render children()}
 	{:else}

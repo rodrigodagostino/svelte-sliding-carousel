@@ -13,12 +13,16 @@
 	const classes = $derived(['ssc-button-prev', restProps.class]);
 
 	function handleOnClick() {
-		rootState.activeSlideIndex =
-			(rootState.activeSlideIndex - 1 + rootState.slides.length) % rootState.slides.length;
+		rootState.goToPrev();
 	}
 </script>
 
-<button bind:this={ref} class={classes} onclick={handleOnClick}>
+<button
+	bind:this={ref}
+	class={classes}
+	aria-disabled={!rootState.canGoToPrev}
+	onclick={handleOnClick}
+>
 	{#if children}
 		{@render children()}
 	{:else}

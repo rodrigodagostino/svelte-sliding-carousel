@@ -22,9 +22,21 @@
 	});
 
 	const classes = $derived(['ssc-slide', restProps.class]);
+
+	const shift = $derived(
+		rootState.slides.length
+			? Math.ceil((rootState.windowStart - index) / rootState.slides.length) * rootState.totalWidth
+			: 0
+	);
 </script>
 
-<li bind:this={ref} {id} class={classes} data-item-index={index}>
+<li
+	bind:this={ref}
+	{id}
+	class={classes}
+	style:transform={shift ? `translateX(${shift}px)` : undefined}
+	data-item-index={index}
+>
 	{@render children?.()}
 </li>
 

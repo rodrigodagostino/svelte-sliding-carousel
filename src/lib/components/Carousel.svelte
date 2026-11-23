@@ -4,6 +4,7 @@
 
 	let {
 		ref = $bindable(null),
+		loop = false,
 		children,
 		...restProps
 	}: CarouselRootProps & { class?: string } = $props();
@@ -13,6 +14,7 @@
 	$effect(() => {
 		rootState.props = {
 			ref,
+			loop,
 		};
 	});
 
