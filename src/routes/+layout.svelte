@@ -111,6 +111,7 @@
 	<nav id="app-nav" class="app-nav" aria-hidden={!isMenuExpanded} inert={!isMenuExpanded}>
 		<div class="container">
 			<div class="app-nav__header">
+				<span>v{version}</span>
 				<a
 					class="link link--github"
 					href="https://github.com/rodrigodagostino/svelte-sliding-carousel"
@@ -133,7 +134,6 @@
 						<path d="M0 0v24h24V0Zm4.5 4.5h15v15h-3v-12H12v12H4.5Z" />
 					</svg>
 				</a>
-				<span>v{version}</span>
 			</div>
 			<hr class="separator" />
 			{#each links as { text, path } (path)}
@@ -310,7 +310,7 @@
 		& .container {
 			align-items: start;
 			gap: 0.75rem;
-			padding: 3rem 2rem;
+			padding: 3.5rem 2rem 3rem;
 			overflow: auto;
 			mask-image: linear-gradient(
 				to bottom,
@@ -345,7 +345,7 @@
 
 		span {
 			margin-top: 0.25rem;
-			margin-inline-start: auto;
+			margin-inline-end: auto;
 		}
 	}
 
