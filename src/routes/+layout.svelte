@@ -20,6 +20,7 @@
 	const links = [
 		{ text: 'Basic', path: '/' },
 		{ text: 'With loop', path: '/with-loop' },
+		{ text: 'With loop and rewind', path: '/with-loop-and-rewind' },
 	];
 
 	const controls = $derived(
@@ -30,12 +31,12 @@
 					? 'number'
 					: key === 'transition'
 						? 'textarea'
-						: key === 'direction'
+						: key === 'loop'
 							? 'select'
 							: 'checkbox',
 			id: toKebabCase(key),
+			...(key === 'loop' ? { options: [false, true, 'rewind'] } : {}),
 			...(key === 'gap' || key === 'transitionDuration' ? { min: 0 } : {}),
-			...(key === 'direction' ? { options: ['vertical', 'horizontal'] } : {}),
 			value,
 		}))
 	);
@@ -50,7 +51,9 @@
 					? Number(value)
 					: type === 'textarea'
 						? JSON.parse(value)
-						: value;
+						: value === 'true' || value === 'false'
+							? value === 'true'
+							: value;
 	}
 </script>
 
