@@ -17,7 +17,10 @@
 	let isMenuExpanded = $state(false);
 	let isControlsExpanded = $state(false);
 
-	const links = [{ text: 'Basic', path: '/' }];
+	const links = [
+		{ text: 'Basic', path: '/' },
+		{ text: 'With loop', path: '/with-loop' },
+	];
 
 	const controls = $derived(
 		Object.entries(layoutState.props).map(([key, value]) => ({
