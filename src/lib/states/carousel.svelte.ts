@@ -13,7 +13,8 @@ class CarouselRootState {
 	});
 	windowStart: number = $state(0);
 	totalWidth: number = $state(0);
-	isLooping: boolean = $derived(!!this.props.loop && this.slides.length >= 3);
+	isLooping: boolean = $derived(this.props.loop === true && this.slides.length >= 3);
+	isRewinding: boolean = $derived(this.props.loop === 'rewind' && this.slides.length >= 2);
 
 	#moveTo(position: number) {
 		const count = this.slides.length;
@@ -30,16 +31,21 @@ class CarouselRootState {
 		this.#moveTo(this.activeAbsoluteIndex + index - this.activeIndex);
 	}
 
-	canGoToPrev: boolean = $derived(this.isLooping || this.activeIndex > 0);
+	canGoToPrev: boolean = $derived(this.isLooping || this.isRewinding || this.activeIndex > 0);
 	goToPrev() {
 		if (!this.canGoToPrev) return;
-		this.#moveTo(this.activeAbsoluteIndex - 1);
+		if (this.isLooping || this.activeIndex > 0) this.#moveTo(this.activeAbsoluteIndex - 1);
+		else this.goTo(this.slides.length - 1);
 	}
 
-	canGoToNext: boolean = $derived(this.isLooping || this.activeIndex < this.slides.length - 1);
+	canGoToNext: boolean = $derived(
+		this.isLooping || this.isRewinding || this.activeIndex < this.slides.length - 1
+	);
 	goToNext() {
 		if (!this.canGoToNext) return;
-		this.#moveTo(this.activeAbsoluteIndex + 1);
+		if (this.isLooping || this.activeIndex < this.slides.length - 1)
+			this.#moveTo(this.activeAbsoluteIndex + 1);
+		else this.goTo(0);
 	}
 }
 

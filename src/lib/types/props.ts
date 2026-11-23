@@ -4,7 +4,7 @@ export interface CarouselRootProps {
 	/** Reference to the carousel element. `[$bindable]` */
 	ref?: HTMLDivElement | null;
 	/** Enables infinite looping. */
-	loop?: boolean;
+	loop?: boolean | 'rewind';
 	/** Content to be rendered inside the carousel. */
 	children?: Snippet;
 }
