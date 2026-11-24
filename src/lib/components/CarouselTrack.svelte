@@ -59,7 +59,8 @@
 		list-style: none;
 		padding-inline-start: 0;
 		margin-inline-start: 0;
-		transition: transform 520ms cubic-bezier(0.32, 0.72, 0, 1);
+		transition: transform var(--ssc-transition-duration, 520ms)
+			var(--ssc-transition-easing, cubic-bezier(0.32, 0.72, 0, 1));
 		backface-visibility: hidden;
 		position: relative;
 	}

@@ -3,6 +3,10 @@ import type { CarouselRootProps as RootProps } from '$lib/types/index.js';
 export const defaultRootProps: RootProps = {
 	loop: false,
 	gap: 0,
+	transition: {
+		duration: 520,
+		easing: 'cubic-bezier(0.2, 1, 0.1, 1)',
+	},
 };
 
 export const defaultSlides = [
