@@ -24,6 +24,7 @@
 		{ text: 'With autoplay', path: '/with-autoplay' },
 		{ text: 'Slides per view', path: '/slides-per-view' },
 		{ text: 'Slides per view: auto', path: '/slides-per-view-auto' },
+		{ text: 'Centered slides', path: '/centered-slides' },
 	];
 
 	const controls = $derived(
@@ -34,11 +35,12 @@
 					? 'text'
 					: key === 'autoplay' || key === 'transition'
 						? 'textarea'
-						: key === 'loop'
+						: key === 'loop' || key === 'align'
 							? 'select'
 							: 'checkbox',
 			id: toKebabCase(key),
 			...(key === 'loop' ? { options: [false, true, 'rewind'] } : {}),
+			...(key === 'align' ? { options: ['start', 'center', 'end'] } : {}),
 			value,
 		}))
 	);

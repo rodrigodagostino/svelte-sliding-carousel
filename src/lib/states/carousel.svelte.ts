@@ -11,6 +11,9 @@ class CarouselRootState {
 	slideOffsets: number[] = $state([]);
 	viewportWidth: number = $state(0);
 	totalWidth: number = $state(0);
+	alignmentRatio: number = $derived(
+		this.props.align === 'center' ? 0.5 : this.props.align === 'end' ? 1 : 0
+	);
 	maxScroll: number = $derived.by(() => {
 		const last = this.slideOffsets.length - 1;
 		if (last < 0) return 0;
@@ -24,8 +27,10 @@ class CarouselRootState {
 		return count ? ((this.activeAbsoluteIndex % count) + count) % count : 0;
 	});
 	lastIndex: number = $derived.by(() => {
+		const finalSlideIndex = Math.max(this.slides.length - 1, 0);
+		if (this.alignmentRatio) return finalSlideIndex;
 		const index = this.slideOffsets.findIndex((offset) => offset >= this.maxScroll - 0.5);
-		return index === -1 ? Math.max(this.slides.length - 1, 0) : index;
+		return index === -1 ? finalSlideIndex : index;
 	});
 
 	isLooping: boolean = $derived.by(() => {
@@ -43,6 +48,10 @@ class CarouselRootState {
 		if (!count) return 0;
 		const cycle = Math.floor(this.activeAbsoluteIndex / count) * this.totalWidth;
 		const offset = this.slideOffsets[this.activeIndex] ?? 0;
+		if (this.alignmentRatio) {
+			const width = this.slideWidths[this.activeIndex] ?? this.viewportWidth;
+			return cycle + offset - (this.viewportWidth - width) * this.alignmentRatio;
+		}
 		return cycle + (this.isLooping ? offset : Math.min(offset, this.maxScroll));
 	});
 

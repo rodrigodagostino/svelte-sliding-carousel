@@ -7,6 +7,7 @@
 		loop = false,
 		autoplay = false,
 		slidesPerView = 1,
+		align = 'start',
 		gap,
 		transition,
 		children,
@@ -32,6 +33,7 @@
 				...(autoplay === true ? {} : autoplay),
 			},
 			slidesPerView: _slidesPerView,
+			align,
 			gap,
 			transition,
 		};

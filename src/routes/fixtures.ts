@@ -4,6 +4,7 @@ export const defaultRootProps: RootProps = {
 	loop: false,
 	autoplay: false,
 	slidesPerView: 1,
+	align: 'start',
 	gap: 0,
 	transition: {
 		duration: 520,

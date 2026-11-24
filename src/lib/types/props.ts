@@ -22,6 +22,8 @@ export interface CarouselRootProps {
 		  };
 	/** Number of slides visible at once (positive integer). `'auto'` lets each slide define its own width. Default: `1`. */
 	slidesPerView?: number | 'auto';
+	/** Where the active slide snaps within the viewport. Default: `'start'`. */
+	align?: 'start' | 'center' | 'end';
 	/** Separation between slides (numbers as pixels, strings as any CSS length). Default: `undefined`. */
 	gap?: number;
 	/** Controls the slide animation played when the track moves to another slide. Omitted fields fall back to their defaults. */
