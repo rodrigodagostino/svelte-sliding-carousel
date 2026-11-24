@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] (2026-11-24)
+
+### Added
+
+- Add `slidesPerView`.
+- Add `'auto'` as option to `slidesPerView`.
+
+### Docs
+
+- Add more default slides to fixtures.
+
 ## [0.3.0] (2026-11-23)
 
 ### Added
