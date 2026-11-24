@@ -1,7 +1,7 @@
 {
 	"name": "@rodrigodagostino/svelte-sliding-carousel",
 	"description": "Create accessible, sliding carousels in Svelte, with keyboard, mouse, and touch support.",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"author": "Rodrigo D’Agostino <rodrigo.dagostino@proton.me>",
 	"keywords": [
 		"sliding",
