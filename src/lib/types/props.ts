@@ -6,6 +6,21 @@ export interface CarouselRootProps {
 	/** Enables infinite looping. Default: `false`. */
 	loop?: boolean | 'rewind';
 	/** Separation between slides (numbers as pixels, strings as any CSS length). Default: `undefined`. */
+	/** Advances slides automatically. `true` uses the default delay (ms). */
+	autoplay?:
+		| boolean
+		| {
+				/** Time between slides (ms). Default: `4000`. */
+				delay?: number;
+				/** Pauses while the pointer is over the carousel. Default: `true`. */
+				pauseOnHover?: boolean;
+				/** Pauses while focus is inside the carousel. Default: `true`. */
+				pauseOnFocus?: boolean;
+				/** Pauses while the page is hidden. Default: `true`. */
+				pauseOnVisibilityChange?: boolean;
+				/** Stops autoplay when it reaches the last slide. Default: `false`. */
+				stopOnLastSlide?: boolean;
+		  };
 	gap?: number;
 	/** Controls the slide animation played when the track moves to another slide. Omitted fields fall back to their defaults. */
 	transition?: {

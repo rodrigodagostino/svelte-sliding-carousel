@@ -21,6 +21,7 @@
 		{ text: 'Basic', path: '/' },
 		{ text: 'With loop', path: '/with-loop' },
 		{ text: 'With loop and rewind', path: '/with-loop-and-rewind' },
+		{ text: 'With autoplay', path: '/with-autoplay' },
 	];
 
 	const controls = $derived(
@@ -31,7 +32,7 @@
 					? 'text'
 					: key === 'delay'
 						? 'number'
-						: key === 'transition'
+						: key === 'autoplay' || key === 'transition'
 							? 'textarea'
 							: key === 'loop'
 								? 'select'

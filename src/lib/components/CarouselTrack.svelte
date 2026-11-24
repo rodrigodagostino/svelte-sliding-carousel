@@ -64,4 +64,10 @@
 		backface-visibility: hidden;
 		position: relative;
 	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ssc-track__inner {
+			transition: none;
+		}
+	}
 </style>

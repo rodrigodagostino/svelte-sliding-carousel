@@ -2,6 +2,7 @@ import type { CarouselRootProps as RootProps } from '$lib/types/index.js';
 
 export const defaultRootProps: RootProps = {
 	loop: false,
+	autoplay: false,
 	gap: 0,
 	transition: {
 		duration: 520,

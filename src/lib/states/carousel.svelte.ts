@@ -13,6 +13,7 @@ class CarouselRootState {
 	});
 	windowStart: number = $state(0);
 	totalWidth: number = $state(0);
+
 	isLooping: boolean = $derived(this.props.loop === true && this.slides.length >= 3);
 	isRewinding: boolean = $derived(this.props.loop === 'rewind' && this.slides.length >= 2);
 
@@ -47,6 +48,24 @@ class CarouselRootState {
 			this.#moveTo(this.activeAbsoluteIndex + 1);
 		else this.goTo(0);
 	}
+
+	isHovered: boolean = $state(false);
+	isFocused: boolean = $state(false);
+	isVisible: boolean = $state(true);
+
+	isPaused: boolean = $derived.by(() => {
+		const { autoplay } = this.props;
+		if (typeof autoplay !== 'object') return false;
+		return !!(
+			(autoplay.pauseOnHover && this.isHovered) ||
+			(autoplay.pauseOnFocus && this.isFocused) ||
+			(autoplay.pauseOnVisibilityChange && !this.isVisible)
+		);
+	});
+	isStopped: boolean = $state(false);
+	isPlaying: boolean = $derived(
+		!!this.props.autoplay && !this.isStopped && !this.isPaused && this.canGoToNext
+	);
 }
 
 const KEY = Symbol('Carousel.RootState');
