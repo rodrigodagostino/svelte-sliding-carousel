@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] (2026-11-23)
+
+### Added
+
+- Add `gap` between slides.
+- Allow slide `transition` customization.
+
 ## [0.2.1] (2026-11-23)
 
 ### Added
@@ -46,6 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add **“Basic”** demo page.
 - Add base project info to README.
 
-[unreleased]: https://github.com/rodrigodagostino/svelte-draggable-drawer/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/rodrigodagostino/svelte-draggable-drawer/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/rodrigodagostino/svelte-draggable-drawer/releases/tag/v0.1.0
