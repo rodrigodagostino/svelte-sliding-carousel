@@ -20,8 +20,8 @@ export interface CarouselRootProps {
 				/** Stops autoplay when it reaches the last slide. Default: `false`. */
 				stopOnLastSlide?: boolean;
 		  };
-	/** Number of slides visible at once (positive integer). Default: `1`. */
-	slidesPerView?: number;
+	/** Number of slides visible at once (positive integer). `'auto'` lets each slide define its own width. Default: `1`. */
+	slidesPerView?: number | 'auto';
 	/** Separation between slides (numbers as pixels, strings as any CSS length). Default: `undefined`. */
 	gap?: number;
 	/** Controls the slide animation played when the track moves to another slide. Omitted fields fall back to their defaults. */

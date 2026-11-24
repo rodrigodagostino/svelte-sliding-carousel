@@ -15,7 +15,9 @@
 
 	const rootState = setCarouselRootState();
 
-	const _slidesPerView = $derived(Math.max(1, Math.floor(slidesPerView) || 1));
+	const _slidesPerView = $derived(
+		slidesPerView === 'auto' ? 'auto' : Math.max(1, Math.floor(slidesPerView) || 1)
+	);
 
 	$effect(() => {
 		rootState.props = {
@@ -78,10 +80,11 @@
 <div
 	bind:this={ref}
 	class={classes}
-	style:--ssc-slides-per-view={_slidesPerView}
+	style:--ssc-slides-per-view={_slidesPerView === 'auto' ? undefined : _slidesPerView}
 	style:--ssc-gap={styleGap}
 	style:--ssc-transition-duration={styleTransitionDuration}
 	style:--ssc-transition-easing={styleTransitionEasing}
+	data-slides-per-view={_slidesPerView}
 	onpointerenter={() => (rootState.isHovered = true)}
 	onpointerleave={() => (rootState.isHovered = false)}
 	onfocusin={() => (rootState.isFocused = true)}

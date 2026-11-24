@@ -23,11 +23,13 @@
 
 	const classes = $derived(['ssc-slide', restProps.class]);
 
-	const shift = $derived(
-		rootState.slides.length
-			? Math.ceil((rootState.windowStart - index) / rootState.slides.length) * rootState.totalWidth
-			: 0
-	);
+	const shift = $derived.by(() => {
+		const { windowStart, slideOffsets, totalWidth } = rootState;
+		if (!totalWidth) return 0;
+
+		const offset = slideOffsets[index] ?? 0;
+		return Math.ceil((windowStart - offset) / totalWidth - 1e-6) * totalWidth;
+	});
 </script>
 
 <li
@@ -43,6 +45,9 @@
 <style>
 	.ssc-slide {
 		flex-shrink: 0;
+	}
+
+	:global(.ssc-root:not([data-slides-per-view='auto'])) .ssc-slide {
 		width: calc(
 			(100% - (var(--ssc-slides-per-view, 1) - 1) * var(--ssc-gap, 0px)) /
 				var(--ssc-slides-per-view, 1)

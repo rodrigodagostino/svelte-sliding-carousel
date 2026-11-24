@@ -7,26 +7,57 @@ class CarouselRootState {
 	track: HTMLElement | null = $state(null);
 	trackPosition: number = $state(0);
 	slides: HTMLLIElement[] = $state([]);
+	slideWidths: number[] = $state([]);
+	slideOffsets: number[] = $state([]);
+	viewportWidth: number = $state(0);
+	totalWidth: number = $state(0);
+	maxScroll: number = $derived.by(() => {
+		const last = this.slideOffsets.length - 1;
+		if (last < 0) return 0;
+		const end = this.slideOffsets[last] + (this.slideWidths[last] ?? 0);
+		return Math.max(end - this.viewportWidth, this.slideOffsets[0]);
+	});
+
 	activeAbsoluteIndex: number = $state(0);
 	activeIndex: number = $derived.by(() => {
 		const count = this.slides.length;
 		return count ? ((this.activeAbsoluteIndex % count) + count) % count : 0;
 	});
-	lastIndex: number = $derived(Math.max(this.slides.length - (this.props.slidesPerView ?? 1), 0));
-	totalWidth: number = $state(0);
+	lastIndex: number = $derived.by(() => {
+		const index = this.slideOffsets.findIndex((offset) => offset >= this.maxScroll - 0.5);
+		return index === -1 ? Math.max(this.slides.length - 1, 0) : index;
+	});
 
-	isLooping: boolean = $derived(this.props.loop === true && this.lastIndex >= 2);
+	isLooping: boolean = $derived.by(() => {
+		const { slideOffsets: offsets, totalWidth } = this;
+		if (this.props.loop !== true || !totalWidth || !offsets.length) return false;
+		const maxSlot = Math.max(
+			...offsets.map((offset, i) => (offsets[i + 1] ?? offsets[0] + totalWidth) - offset)
+		);
+		return totalWidth - this.viewportWidth >= 2 * maxSlot - 1;
+	});
 	isRewinding: boolean = $derived(this.props.loop === 'rewind' && this.lastIndex >= 1);
 
-	windowStart: number = $derived.by(() => {
+	targetOffset: number = $derived.by(() => {
 		const count = this.slides.length;
 		if (!count) return 0;
-		const target = this.activeAbsoluteIndex;
-		if (!this.isLooping) return Math.floor(target / count) * count;
+		const cycle = Math.floor(this.activeAbsoluteIndex / count) * this.totalWidth;
+		const offset = this.slideOffsets[this.activeIndex] ?? 0;
+		return cycle + (this.isLooping ? offset : Math.min(offset, this.maxScroll));
+	});
+
+	windowStart: number = $derived.by(() => {
+		const { slideOffsets: offsets, totalWidth } = this;
+		const count = this.slides.length;
+		if (!count || !totalWidth || !offsets.length) return 0;
+		const base = offsets[0];
+		if (!this.isLooping) return Math.floor(this.activeAbsoluteIndex / count) * totalWidth + base;
 		const position = this.trackPosition;
-		return target >= position
-			? Math.floor(position)
-			: Math.ceil(position + (this.props.slidesPerView ?? 1)) - count;
+		if (this.targetOffset < position) return position + this.viewportWidth - totalWidth;
+		const cycle = Math.floor((position - base) / totalWidth) * totalWidth;
+		let start = base;
+		for (const offset of offsets) if (offset <= position - cycle + 0.01) start = offset;
+		return cycle + start;
 	});
 
 	goTo(index: number) {

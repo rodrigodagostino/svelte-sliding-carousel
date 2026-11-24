@@ -23,21 +23,20 @@
 		{ text: 'With loop and rewind', path: '/with-loop-and-rewind' },
 		{ text: 'With autoplay', path: '/with-autoplay' },
 		{ text: 'Slides per view', path: '/slides-per-view' },
+		{ text: 'Slides per view: auto', path: '/slides-per-view-auto' },
 	];
 
 	const controls = $derived(
 		Object.entries(layoutState.props).map(([key, value]) => ({
 			label: key,
 			type:
-				key === 'gap'
+				key === 'slidesPerView' || key === 'gap'
 					? 'text'
-					: key === 'slidesPerView'
-						? 'number'
-						: key === 'autoplay' || key === 'transition'
-							? 'textarea'
-							: key === 'loop'
-								? 'select'
-								: 'checkbox',
+					: key === 'autoplay' || key === 'transition'
+						? 'textarea'
+						: key === 'loop'
+							? 'select'
+							: 'checkbox',
 			id: toKebabCase(key),
 			...(key === 'loop' ? { options: [false, true, 'rewind'] } : {}),
 			value,

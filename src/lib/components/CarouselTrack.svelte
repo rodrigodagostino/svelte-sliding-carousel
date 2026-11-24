@@ -9,7 +9,6 @@
 	}: CarouselTrackProps & { class?: string } = $props();
 
 	let inner: HTMLUListElement | null = $state(null);
-	let offsetWidth: number = $state(0);
 
 	const rootState = getCarouselRootState();
 
@@ -18,32 +17,36 @@
 	});
 
 	$effect(() => {
-		void rootState.props.slidesPerView;
 		void rootState.props.gap;
-		const first = rootState.slides[0];
-		const last = rootState.slides[rootState.slides.length - 1];
-		if (!inner || !offsetWidth || !first || !last) {
-			rootState.totalWidth = 0;
-			return;
-		}
-		const gap = parseFloat(getComputedStyle(inner).columnGap) || 0;
-		rootState.totalWidth = last.offsetLeft + last.offsetWidth - first.offsetLeft + gap;
+		const { slides } = rootState;
+		if (!inner) return;
+		const track = inner;
+		const observer = new ResizeObserver(() => {
+			const first = slides[0];
+			const last = slides[slides.length - 1];
+			const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+			rootState.viewportWidth = track.offsetWidth;
+			rootState.slideOffsets = slides.map((slide) => slide.offsetLeft);
+			rootState.slideWidths = slides.map((slide) => slide.offsetWidth);
+			rootState.totalWidth =
+				first && last ? last.offsetLeft + last.offsetWidth - first.offsetLeft + gap : 0;
+		});
+		observer.observe(track);
+		for (const slide of slides) observer.observe(slide);
+		return () => observer.disconnect();
 	});
 
 	$effect(() => {
-		const target = rootState.activeAbsoluteIndex;
-		const { slides, totalWidth } = rootState;
-		if (!rootState.isLooping || !inner || !totalWidth) {
+		const target = rootState.targetOffset;
+		if (!rootState.isLooping || !inner) {
 			rootState.trackPosition = target;
 			return;
 		}
 		const track = inner;
-		const step = totalWidth / slides.length;
 		let frame = requestAnimationFrame(function sync() {
 			const { transform } = getComputedStyle(track);
-			const offset = transform === 'none' ? 0 : -new DOMMatrixReadOnly(transform).m41;
-			const position = (offset - (slides[0]?.offsetLeft ?? 0)) / step;
-			if (Math.abs(position - target) < 0.001) {
+			const position = transform === 'none' ? 0 : -new DOMMatrixReadOnly(transform).m41;
+			if (Math.abs(position - target) < 0.5) {
 				rootState.trackPosition = target;
 				return;
 			}
@@ -54,20 +57,11 @@
 	});
 
 	const classes = $derived(['ssc-track', restProps.class]);
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	function getStyleTransform(...args: unknown[]) {
-		const { slides, activeIndex, activeAbsoluteIndex, totalWidth } = rootState;
-		const cycle = slides.length ? Math.floor(activeAbsoluteIndex / slides.length) * totalWidth : 0;
-		const offset = (slides[activeIndex]?.offsetLeft ?? 0) + cycle;
-		return `translate3d(${-offset}px, 0, 0)`;
-	}
-
-	const styleTransform = $derived(getStyleTransform(rootState.activeAbsoluteIndex, offsetWidth));
+	const styleTransform = $derived(`translate3d(${-rootState.targetOffset}px, 0, 0)`);
 </script>
 
 <div bind:this={ref} class={classes}>
-	<ul bind:this={inner} bind:offsetWidth class="ssc-track__inner" style:transform={styleTransform}>
+	<ul bind:this={inner} class="ssc-track__inner" style:transform={styleTransform}>
 		{@render children?.()}
 	</ul>
 </div>
