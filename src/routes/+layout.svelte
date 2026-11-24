@@ -22,6 +22,7 @@
 		{ text: 'With loop', path: '/with-loop' },
 		{ text: 'With loop and rewind', path: '/with-loop-and-rewind' },
 		{ text: 'With autoplay', path: '/with-autoplay' },
+		{ text: 'Slides per view', path: '/slides-per-view' },
 	];
 
 	const controls = $derived(
@@ -30,7 +31,7 @@
 			type:
 				key === 'gap'
 					? 'text'
-					: key === 'delay'
+					: key === 'slidesPerView'
 						? 'number'
 						: key === 'autoplay' || key === 'transition'
 							? 'textarea'

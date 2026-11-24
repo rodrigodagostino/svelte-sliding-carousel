@@ -18,6 +18,7 @@
 	});
 
 	$effect(() => {
+		void rootState.props.slidesPerView;
 		void rootState.props.gap;
 		const first = rootState.slides[0];
 		const last = rootState.slides[rootState.slides.length - 1];
@@ -27,6 +28,29 @@
 		}
 		const gap = parseFloat(getComputedStyle(inner).columnGap) || 0;
 		rootState.totalWidth = last.offsetLeft + last.offsetWidth - first.offsetLeft + gap;
+	});
+
+	$effect(() => {
+		const target = rootState.activeAbsoluteIndex;
+		const { slides, totalWidth } = rootState;
+		if (!rootState.isLooping || !inner || !totalWidth) {
+			rootState.trackPosition = target;
+			return;
+		}
+		const track = inner;
+		const step = totalWidth / slides.length;
+		let frame = requestAnimationFrame(function sync() {
+			const { transform } = getComputedStyle(track);
+			const offset = transform === 'none' ? 0 : -new DOMMatrixReadOnly(transform).m41;
+			const position = (offset - (slides[0]?.offsetLeft ?? 0)) / step;
+			if (Math.abs(position - target) < 0.001) {
+				rootState.trackPosition = target;
+				return;
+			}
+			rootState.trackPosition = position;
+			frame = requestAnimationFrame(sync);
+		});
+		return () => cancelAnimationFrame(frame);
 	});
 
 	const classes = $derived(['ssc-track', restProps.class]);

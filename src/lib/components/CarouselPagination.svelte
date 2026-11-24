@@ -8,6 +8,9 @@
 	const rootState = getCarouselRootState();
 
 	const classes = $derived(['ssc-pagination', restProps.class]);
+	const pageCount = $derived(
+		rootState.isLooping ? rootState.slides.length : rootState.lastIndex + 1
+	);
 
 	function handleOnClick(index: number) {
 		rootState.goTo(index);
@@ -15,7 +18,7 @@
 </script>
 
 <ul bind:this={ref} class={classes}>
-	{#each rootState.slides as { id }, index (id)}
+	{#each rootState.slides.slice(0, pageCount) as { id }, index (id)}
 		<li>
 			<button
 				class="ssc-pagination__page"

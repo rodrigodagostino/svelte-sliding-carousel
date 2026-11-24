@@ -43,6 +43,9 @@
 <style>
 	.ssc-slide {
 		flex-shrink: 0;
-		width: 100%;
+		width: calc(
+			(100% - (var(--ssc-slides-per-view, 1) - 1) * var(--ssc-gap, 0px)) /
+				var(--ssc-slides-per-view, 1)
+		);
 	}
 </style>

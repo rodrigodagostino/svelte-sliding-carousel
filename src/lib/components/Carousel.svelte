@@ -6,6 +6,7 @@
 		ref = $bindable(null),
 		loop = false,
 		autoplay = false,
+		slidesPerView = 1,
 		gap,
 		transition,
 		children,
@@ -13,6 +14,8 @@
 	}: CarouselRootProps & { class?: string } = $props();
 
 	const rootState = setCarouselRootState();
+
+	const _slidesPerView = $derived(Math.max(1, Math.floor(slidesPerView) || 1));
 
 	$effect(() => {
 		rootState.props = {
@@ -26,6 +29,7 @@
 				stopOnLastSlide: false,
 				...(autoplay === true ? {} : autoplay),
 			},
+			slidesPerView: _slidesPerView,
 			gap,
 			transition,
 		};
@@ -36,15 +40,22 @@
 	});
 
 	$effect(() => {
+		if (!rootState.isLooping && rootState.activeIndex > rootState.lastIndex)
+			rootState.goTo(rootState.lastIndex);
+	});
+
+	$effect(() => {
 		const position = rootState.activeAbsoluteIndex;
 		const { autoplay } = rootState.props;
 		if (!rootState.isPlaying || typeof autoplay !== 'object') return;
+
 		const timeout = setTimeout(() => {
 			if (rootState.activeAbsoluteIndex !== position) return;
 			rootState.goToNext();
-			if (autoplay.stopOnLastSlide && rootState.activeIndex === rootState.slides.length - 1)
+			if (autoplay.stopOnLastSlide && rootState.activeIndex === rootState.lastIndex)
 				rootState.isStopped = true;
 		}, autoplay.delay);
+
 		return () => clearTimeout(timeout);
 	});
 
@@ -67,6 +78,7 @@
 <div
 	bind:this={ref}
 	class={classes}
+	style:--ssc-slides-per-view={_slidesPerView}
 	style:--ssc-gap={styleGap}
 	style:--ssc-transition-duration={styleTransitionDuration}
 	style:--ssc-transition-easing={styleTransitionEasing}

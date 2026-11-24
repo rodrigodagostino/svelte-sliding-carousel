@@ -5,7 +5,6 @@ export interface CarouselRootProps {
 	ref?: HTMLDivElement | null;
 	/** Enables infinite looping. Default: `false`. */
 	loop?: boolean | 'rewind';
-	/** Separation between slides (numbers as pixels, strings as any CSS length). Default: `undefined`. */
 	/** Advances slides automatically. `true` uses the default delay (ms). */
 	autoplay?:
 		| boolean
@@ -21,6 +20,9 @@ export interface CarouselRootProps {
 				/** Stops autoplay when it reaches the last slide. Default: `false`. */
 				stopOnLastSlide?: boolean;
 		  };
+	/** Number of slides visible at once (positive integer). Default: `1`. */
+	slidesPerView?: number;
+	/** Separation between slides (numbers as pixels, strings as any CSS length). Default: `undefined`. */
 	gap?: number;
 	/** Controls the slide animation played when the track moves to another slide. Omitted fields fall back to their defaults. */
 	transition?: {
