@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-	<title>Slides per view: auto — Svelte Sliding Carousel</title>
+	<title>Multiple slides per view (auto width) — Svelte Sliding Carousel</title>
 </svelte:head>
 
 <Carousel.Root {...layoutState.props}>
@@ -40,7 +40,7 @@
 </Carousel.Root>
 
 <style>
-	:global([data-page-pathname='slides-per-view-auto']) {
+	:global([data-page-pathname='multiple-slides-per-view-auto-width']) {
 		:global(.ssc-root) {
 			max-width: 64rem;
 			margin-inline: auto;

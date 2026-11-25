@@ -22,8 +22,8 @@
 		{ text: 'With loop', path: '/with-loop' },
 		{ text: 'With loop and rewind', path: '/with-loop-and-rewind' },
 		{ text: 'With autoplay', path: '/with-autoplay' },
-		{ text: 'Slides per view', path: '/slides-per-view' },
-		{ text: 'Slides per view: auto', path: '/slides-per-view-auto' },
+		{ text: 'Multiple slides per view', path: '/multiple-slides-per-view' },
+		{ text: 'Multiple slides per view (auto width)', path: '/multiple-slides-per-view-auto-width' },
 		{ text: 'Centered slides', path: '/centered-slides' },
 	];
 
