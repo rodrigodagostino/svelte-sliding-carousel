@@ -56,12 +56,25 @@
 		return () => cancelAnimationFrame(frame);
 	});
 
+	$effect(() => {
+		void rootState.targetOffset;
+		if (rootState.motionState !== 'snapping' || !inner) return;
+		const duration = parseFloat(getComputedStyle(inner).transitionDuration) * 1000 || 0;
+		const timeout = setTimeout(() => (rootState.motionState = 'idle'), duration + 50);
+		return () => clearTimeout(timeout);
+	});
+
+	function ontransitionend(event: TransitionEvent) {
+		if (event.target === event.currentTarget && event.propertyName === 'transform')
+			rootState.motionState = 'idle';
+	}
+
 	const classes = $derived(['ssc-track', restProps.class]);
 	const styleTransform = $derived(`translate3d(${-rootState.targetOffset}px, 0, 0)`);
 </script>
 
 <div bind:this={ref} class={classes}>
-	<ul bind:this={inner} class="ssc-track__inner" style:transform={styleTransform}>
+	<ul bind:this={inner} class="ssc-track__inner" style:transform={styleTransform} {ontransitionend}>
 		{@render children?.()}
 	</ul>
 </div>
@@ -77,15 +90,14 @@
 		list-style: none;
 		padding-inline-start: 0;
 		margin-inline-start: 0;
-		transition: transform var(--ssc-transition-duration, 520ms)
-			var(--ssc-transition-easing, cubic-bezier(0.32, 0.72, 0, 1));
 		backface-visibility: hidden;
 		position: relative;
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.ssc-track__inner {
-			transition: none;
+	@media (prefers-reduced-motion: no-preference) {
+		:global(.ssc-root[data-motion-state='snapping']) .ssc-track__inner {
+			transition: transform var(--ssc-transition-duration, 520ms)
+				var(--ssc-transition-easing, cubic-bezier(0.32, 0.72, 0, 1));
 		}
 	}
 </style>

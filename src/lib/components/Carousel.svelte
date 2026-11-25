@@ -86,6 +86,7 @@
 	style:--ssc-gap={styleGap}
 	style:--ssc-transition-duration={styleTransitionDuration}
 	style:--ssc-transition-easing={styleTransitionEasing}
+	data-motion-state={rootState.motionState}
 	data-slides-per-view={_slidesPerView}
 	onpointerenter={() => (rootState.isHovered = true)}
 	onpointerleave={() => (rootState.isHovered = false)}

@@ -4,6 +4,7 @@ import type { CarouselRootProps as RootProps } from '$lib/types/index.js';
 class CarouselRootState {
 	ref: HTMLElement | null = $state(null);
 	props: RootProps = $state({});
+	motionState: 'idle' | 'snapping' = $state('idle');
 	track: HTMLElement | null = $state(null);
 	trackPosition: number = $state(0);
 	slides: HTMLLIElement[] = $state([]);
@@ -70,13 +71,15 @@ class CarouselRootState {
 	});
 
 	goTo(index: number) {
+		const from = this.targetOffset;
 		this.activeAbsoluteIndex += index - this.activeIndex;
+		if (Math.abs(this.targetOffset - from) >= 0.5) this.motionState = 'snapping';
 	}
 
 	canGoToPrev: boolean = $derived(this.isLooping || this.isRewinding || this.activeIndex > 0);
 	goToPrev() {
 		if (!this.canGoToPrev) return;
-		if (this.isLooping || this.activeIndex > 0) this.activeAbsoluteIndex -= 1;
+		if (this.isLooping || this.activeIndex > 0) this.goTo(this.activeIndex - 1);
 		else this.goTo(this.lastIndex);
 	}
 
@@ -85,7 +88,7 @@ class CarouselRootState {
 	);
 	goToNext() {
 		if (!this.canGoToNext) return;
-		if (this.isLooping || this.activeIndex < this.lastIndex) this.activeAbsoluteIndex += 1;
+		if (this.isLooping || this.activeIndex < this.lastIndex) this.goTo(this.activeIndex + 1);
 		else this.goTo(0);
 	}
 
