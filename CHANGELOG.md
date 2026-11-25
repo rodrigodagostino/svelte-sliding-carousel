@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] (2026-11-24)
+
+### Added
+
+- Add `align` to control where active slide snaps.
+
+### Fixed
+
+- Prevent track transition on initial load when `align` is not `start`.
+
+### Docs
+
+- Prevent style overrides between demo pages.
+- Rename `slides-per-view` routes.
+
 ## [0.4.0] (2026-11-24)
 
 ### Added
@@ -70,7 +85,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add **“Basic”** demo page.
 - Add base project info to README.
 
-[unreleased]: https://github.com/rodrigodagostino/svelte-draggable-drawer/compare/v0.2.2...HEAD
+[unreleased]: https://github.com/rodrigodagostino/svelte-draggable-drawer/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.2.2...v0.3.0
 [0.2.2]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/rodrigodagostino/svelte-sortable-list/compare/v0.1.0...v0.2.0
