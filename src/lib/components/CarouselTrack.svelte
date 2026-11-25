@@ -8,7 +8,7 @@
 		...restProps
 	}: CarouselTrackProps & { class?: string } = $props();
 
-	let inner: HTMLUListElement | null = $state(null);
+	let innerRef: HTMLUListElement | null = $state(null);
 
 	const rootState = getCarouselRootState();
 
@@ -19,8 +19,8 @@
 	$effect(() => {
 		void rootState.props.gap;
 		const { slides } = rootState;
-		if (!inner) return;
-		const track = inner;
+		if (!innerRef) return;
+		const track = innerRef;
 		const observer = new ResizeObserver(() => {
 			const first = slides[0];
 			const last = slides[slides.length - 1];
@@ -38,11 +38,11 @@
 
 	$effect(() => {
 		const target = rootState.targetOffset;
-		if (!rootState.isLooping || !inner) {
+		if (!rootState.isLooping || !innerRef) {
 			rootState.trackPosition = target;
 			return;
 		}
-		const track = inner;
+		const track = innerRef;
 		let frame = requestAnimationFrame(function sync() {
 			const { transform } = getComputedStyle(track);
 			const position = transform === 'none' ? 0 : -new DOMMatrixReadOnly(transform).m41;
@@ -58,8 +58,8 @@
 
 	$effect(() => {
 		void rootState.targetOffset;
-		if (rootState.motionState !== 'snapping' || !inner) return;
-		const duration = parseFloat(getComputedStyle(inner).transitionDuration) * 1000 || 0;
+		if (rootState.motionState !== 'snapping' || !innerRef) return;
+		const duration = parseFloat(getComputedStyle(innerRef).transitionDuration) * 1000 || 0;
 		const timeout = setTimeout(() => (rootState.motionState = 'idle'), duration + 50);
 		return () => clearTimeout(timeout);
 	});
@@ -74,7 +74,12 @@
 </script>
 
 <div bind:this={ref} class={classes}>
-	<ul bind:this={inner} class="ssc-track__inner" style:transform={styleTransform} {ontransitionend}>
+	<ul
+		bind:this={innerRef}
+		class="ssc-track__inner"
+		style:transform={styleTransform}
+		{ontransitionend}
+	>
 		{@render children?.()}
 	</ul>
 </div>
