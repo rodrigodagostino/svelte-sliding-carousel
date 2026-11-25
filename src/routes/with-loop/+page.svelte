@@ -33,14 +33,16 @@
 </Carousel.Root>
 
 <style>
-	:global(.ssc-root) {
-		max-width: 64rem;
-		margin-inline: auto;
-	}
+	:global([data-page-pathname='with-loop']) {
+		:global(.ssc-root) {
+			max-width: 64rem;
+			margin-inline: auto;
+		}
 
-	.ssc-slide-image {
-		width: 100%;
-		aspect-ratio: 16 / 9;
-		object-fit: cover;
+		.ssc-slide-image {
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			object-fit: cover;
+		}
 	}
 </style>

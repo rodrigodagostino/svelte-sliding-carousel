@@ -34,14 +34,16 @@
 </Carousel.Root>
 
 <style>
-	:global(.ssc-root) {
-		max-width: 64rem;
-		margin-inline: auto;
-	}
+	:global([data-page-pathname='slides-per-view']) {
+		:global(.ssc-root) {
+			max-width: 64rem;
+			margin-inline: auto;
+		}
 
-	.ssc-slide-image {
-		width: 100%;
-		aspect-ratio: 4 / 3;
-		object-fit: cover;
+		.ssc-slide-image {
+			width: 100%;
+			aspect-ratio: 4 / 3;
+			object-fit: cover;
+		}
 	}
 </style>
