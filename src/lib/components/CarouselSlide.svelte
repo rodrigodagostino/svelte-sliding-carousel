@@ -37,7 +37,9 @@
 	{id}
 	class={classes}
 	style:transform={shift ? `translateX(${shift}px)` : undefined}
-	data-item-index={index}
+	data-slide-id={id}
+	data-slide-index={index}
+	data-is-active={rootState.activeIndex === index}
 >
 	{@render children?.()}
 </li>

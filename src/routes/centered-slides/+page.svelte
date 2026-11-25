@@ -40,6 +40,21 @@
 		margin-inline: auto;
 	}
 
+	:global(.ssc-track) {
+		padding-block: 3.125rem;
+	}
+
+	:global(.ssc-slide) {
+		border-radius: 1rem;
+		transition: scale var(--ssc-transition-duration) var(--ssc-transition-easing);
+		overflow: hidden;
+	}
+
+	:global(.ssc-slide[data-is-active='true']) {
+		scale: 1.4;
+		z-index: 1;
+	}
+
 	.ssc-slide-image {
 		width: 100%;
 		aspect-ratio: 4 / 3;
